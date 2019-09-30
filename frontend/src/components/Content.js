@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import NoteEditor from './NoteEditor';
-import NoteViewer from './NoteViewer';
-import Instructions from './Instructions';
+import React, { Component } from "react";
+import NoteEditor from "./NoteEditor";
+import NoteViewer from "./NoteViewer";
+import Instructions from "./Instructions";
 
 /*
   Advice: If you cannot figure out how to get this component to work,
@@ -11,21 +11,59 @@ import Instructions from './Instructions';
           refactor to get this Content component to work.
 */
 class Content extends Component {
+  state = {
+    editClicked: false
+  };
+  // renderContent = () => {
+  //   if (false) {
+  //     return <NoteEditor />;
+  //   } else if (false) {
+  //     return (
+  //       <NoteViewer
+  //         displayNote={this.props.displayNote}
+  //         title={this.props.title}
+  //       />
+  //     );
+  //   } else {
+  //     return <Instructions />;
+  //   }
+  // };
+  //GET THIS WORKING EVENTUALLY!!! :)
+
+  editClicked = () => {
+    // console.log("DIDIT!");
+    this.setState({
+      editClicked: true
+    });
+  };
+  //if this function is run, value will be equal to true
+
   renderContent = () => {
-    if (false) {
-      return <NoteEditor />;
-    } else if (false) {
-      return <NoteViewer />;
+    if (this.state.editClicked === true) {
+      return (
+        <NoteEditor
+          title={this.props.title}
+          caption={this.props.caption}
+          handleSubmit={this.props.handleSubmit}
+          handleChangeBody={this.props.handleChangeBody}
+        />
+      );
     } else {
-      return <Instructions />;
+      return (
+        <NoteViewer
+          title={this.props.title}
+          caption={this.props.caption}
+          setStateNoteItem={this.props.setStateNoteItem}
+          editClicked={this.editClicked}
+        />
+      );
     }
-  }
+  };
 
   render() {
+    // console.log("TITLE:", this.props.title);
     return (
-      <div className='master-detail-element detail'>
-        {this.renderContent()}
-      </div>
+      <div className="master-detail-element detail">{this.renderContent()}</div>
     );
   }
 }
